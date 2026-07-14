@@ -7,7 +7,7 @@ module Api
         short_url = params.require(:short_url).strip
         validator = DecodeShortLinkValidator.new(short_url: short_url)
 
-        raise ApiError::InvalidParametersError, validator.errors.full_messages.join(', ') unless validator.valid?
+        raise ApiError::InvalidParametersError, validator.errors.full_messages.join(', ') if validator.failure?
 
         short_link_id = ShortLink.decode(validator.code)
 
@@ -28,7 +28,8 @@ module Api
           short_url: short_link_url(
             code: short_link.code,
             host: Rails.application.credentials.short_link_host,
-            protocol: 'https'
+            protocol: 'https',
+            port: nil
           )
         }, status: :created
       end
