@@ -21,8 +21,8 @@ module Api
       end
 
       def create
-        orignal_url = params.require(:orignal_url).strip
-        short_link  = ShortLink.create!(original_url: orignal_url)
+        original_url = params.require(:original_url).strip
+        short_link = ShortLink.create!(original_url: original_url)
 
         render json: {
           short_url: short_link_url(

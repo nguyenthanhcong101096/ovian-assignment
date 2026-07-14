@@ -9,6 +9,7 @@ development:
 
 test:
   <<: *default
+  url: <%= ENV.fetch('TEST_DATABASE_URL') { ENV.fetch('DATABASE_URL', Rails.application.credentials.database_url) } %>
 
 staging:
   <<: *default
