@@ -16,6 +16,13 @@ the assignment.
 - Hashids for short code generation
 - Rack::Attack for request rate limiting
 
+## Completed Checklist
+
+- [x] Implement `POST /api/v1/encode` to create a short URL from an original URL.
+- [x] Implement `GET /api/v1/decode` to return the original URL from a short URL.
+- [x] Implement `GET /s/:code` to redirect users to the original URL.
+
+
 ## Persistence
 
 Short-link mappings are persisted in PostgreSQL rather than application memory.
