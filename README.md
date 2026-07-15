@@ -101,8 +101,7 @@ Mitigations:
 ## AI Usage Disclosure
 
 AI was used as a discussion and review tool for project structure, design
-trade-offs, security considerations, scalability considerations, and test-case
-brainstorming.
+trade-offs, security considerations, scalability considerations
 
 The final implementation, debugging, testing, and engineering decisions were
 completed and verified by me.
