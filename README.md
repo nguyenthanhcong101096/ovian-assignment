@@ -16,6 +16,13 @@ the assignment.
 - Hashids for short code generation
 - Rack::Attack for request rate limiting
 
+## Persistence
+
+Short-link mappings are persisted in PostgreSQL rather than application memory.
+Restarting the Rails application does not remove previously generated links,
+and existing short URLs can still be resolved after the application starts
+again.
+
 ## Collision Strategy
 
 Short codes are generated from the database primary key using Hashids. Since the
@@ -28,8 +35,8 @@ index and add retry-on-collision logic.
 
 ## Cache Strategy
 
-The read path can be cached by storing the mapping from `short_url` to
-`original_url`, for example `http://your.domain/GeAi9K -> https://codesubmit.io/library/react`. This
+The read path can be cached by storing the mapping from `code` to
+`original_url`, for example `short_link:GeAi9K -> https://codesubmit.io/library/react`. This
 reduces repeated database reads for popular short links on `/api/v1/decode` or
 `/s/:code`.
 
@@ -79,7 +86,7 @@ Mitigations:
 - Monitor repeated requests for invalid short codes.
 - Use longer random codes if stronger anti-enumeration guarantees are required.
 
-### Open Redirect / Phishing Risk
+### Malicious Destination / Phishing Abuse
 
 Short links can redirect users to any submitted `original_url`. Attackers can
 create links to phishing or scam pages, such as fake bank login pages, while
@@ -90,3 +97,12 @@ Mitigations:
 - Block known malicious domains.
 - Monitor and remove reported malicious links.
 - Consider showing a warning page before redirecting users to the destination.
+
+## AI Usage Disclosure
+
+AI was used as a discussion and review tool for project structure, design
+trade-offs, security considerations, scalability considerations, and test-case
+brainstorming.
+
+The final implementation, debugging, testing, and engineering decisions were
+completed and verified by me.
