@@ -67,6 +67,27 @@ RSpec.describe 'Api::V1::ShortLinks' do
         expect { perform_request }.to change(ShortLink, :count).by(0)
       end
     end
+
+    context 'when the client exceeds the encode rate limit' do
+      before do
+        Rack::Attack.cache.store.clear
+      end
+
+      after do
+        Rack::Attack.cache.store.clear
+      end
+
+      it 'returns too many requests' do
+        11.times do
+          post api_v1_encode_path, params: { original_url: original_url }
+        end
+
+        expect(response).to have_http_status(:too_many_requests)
+        expect(response.parsed_body).to eq(
+          'error' => 'You are doing it too quick. Please try again later'
+        )
+      end
+    end
   end
 
   describe 'GET /api/v1/decode' do
