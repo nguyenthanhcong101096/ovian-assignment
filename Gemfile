@@ -6,7 +6,6 @@ ruby '3.3.5'
 
 # core
 gem 'bootsnap', require: false
-gem 'dry-schema', '~> 1.9.1'
 gem 'hashids', '~> 1.0.6'
 gem 'pg'
 gem 'puma', '>= 5.0'
