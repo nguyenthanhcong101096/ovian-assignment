@@ -16,6 +16,38 @@ the assignment.
 - Hashids for short code generation
 - Rack::Attack for request rate limiting
 
+## Collision Strategy
+
+Short codes are generated from the database primary key using Hashids. Since the
+primary key is unique, each generated code should also be unique for the same
+salt and alphabet. The database also enforces a unique index on
+`short_links.code` as a final safety check.
+
+If the implementation later switches to random codes, it should keep the unique
+index and add retry-on-collision logic.
+
+## Cache Strategy
+
+The read path can be cached by storing the mapping from `short_url` to
+`original_url`, for example `http://your.domain/GeAi9K -> https://codesubmit.io/library/react`. This
+reduces repeated database reads for popular short links on `/api/v1/decode` or
+`/s/:code`.
+
+Since short links are effectively immutable, cached
+values can use a long TTL.
+
+## Database Growth
+
+Every valid `POST /api/v1/encode` request creates a new `short_links` record, so
+the database grows with usage. As the table becomes larger, storage, backups,
+migrations, and query performance can become more expensive.
+
+Mitigations:
+- Rate limit link creation.
+- Monitor database size and row count.
+- Keep indexes on lookup fields such as `code`.
+- Consider expiration or cleanup for old/unused links if the product allows it.
+
 ## Security Considerations
 
 ### Abuse / DoS via `POST /api/v1/encode`
