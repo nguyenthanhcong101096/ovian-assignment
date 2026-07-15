@@ -58,7 +58,7 @@ Example response:
 ## Call The API On Heroku
 
 ```sh
-BASE_URL=https://<app-name>.herokuapp.com
+BASE_URL=https://short-link-bcec94c612a4.herokuapp.com
 ```
 
 Encode URL:
@@ -72,7 +72,7 @@ Example Heroku response:
 
 ```json
 {
-  "short_url": "https://<app-name>.herokuapp.com/s/abc1234"
+  "short_url": "https://short-link-bcec94c612a4.herokuapp.com/s/abc1234"
 }
 ```
 
@@ -80,7 +80,7 @@ Decode URL:
 
 ```sh
 curl --get "$BASE_URL/api/v1/decode" \
-  --data-urlencode "short_url=https://<app-name>.herokuapp.com/s/abc1234"
+  --data-urlencode "short_url=https://short-link-bcec94c612a4.herokuapp.com/s/abc1234"
 ```
 Example Heroku response:
 
