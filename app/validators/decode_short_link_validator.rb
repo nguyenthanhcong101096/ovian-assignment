@@ -31,8 +31,6 @@ class DecodeShortLinkValidator < ApplicationValidator
     @code = extracted_code
   end
 
-  private
-
   def allowed_host?(uri)
     host = Rails.application.credentials.short_link_host
 
