@@ -9,7 +9,7 @@
 Start the Rails API and PostgreSQL:
 
 ```sh
-RAILS_ENV='development' RAILS_MASTER_KEY='6e6a75087a9067cdccc0b882ba6a222d' docker compose up --build
+RAILS_MASTER_KEY='6e6a75087a9067cdccc0b882ba6a222d' docker compose up --build
 ```
 
 The local API runs at:
@@ -72,7 +72,7 @@ Example Heroku response:
 
 ```json
 {
-  "short_url": "https://short-link-bcec94c612a4.herokuapp.com/s/abc1234"
+  "short_url": "https://short-link-bcec94c612a4.herokuapp.com/s/ojROB4y"
 }
 ```
 
@@ -80,7 +80,7 @@ Decode URL:
 
 ```sh
 curl --get "$BASE_URL/api/v1/decode" \
-  --data-urlencode "short_url=https://short-link-bcec94c612a4.herokuapp.com/s/abc1234"
+  --data-urlencode "short_url=https://short-link-bcec94c612a4.herokuapp.com/s/ojROB4y"
 ```
 Example Heroku response:
 
