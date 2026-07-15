@@ -24,3 +24,4 @@ group :development do
 end
 
 gem 'rack-attack', '~> 6.8'
+gem 'redis', '>= 4.0.1'

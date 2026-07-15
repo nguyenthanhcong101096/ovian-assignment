@@ -45,9 +45,14 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Keep the production container self-contained for Heroku. This API currently
-  # does not need durable cache/job backends.
-  config.cache_store = :memory_store
+  # Use Redis when available so Rack::Attack rate-limit counters are shared
+  # across processes and containers. Fall back to memory for simple single-node
+  # deployments.
+  config.cache_store = if ENV['REDIS_URL'].present?
+                         [:redis_cache_store, { url: ENV.fetch('REDIS_URL') }]
+                       else
+                         :memory_store
+                       end
   config.active_job.queue_adapter = :async
 
   # Ignore bad email addresses and do not raise email delivery errors.
