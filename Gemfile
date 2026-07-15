@@ -9,7 +9,7 @@ gem 'bootsnap', require: false
 gem 'hashids', '~> 1.0.6'
 gem 'pg'
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 8.0.4'
+gem 'rails', '~> 8.1.3'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
