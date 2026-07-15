@@ -9,7 +9,7 @@
 Start the Rails API and PostgreSQL:
 
 ```sh
-RAILS_MASTER_KEY="$(cat config/credentials/production.key)" docker compose up --build
+RAILS_ENV='development' RAILS_MASTER_KEY='6e6a75087a9067cdccc0b882ba6a222d' docker compose up --build
 ```
 
 The local API runs at:
@@ -33,7 +33,7 @@ Example response:
 
 ```json
 {
-  "short_url": "https://localhost:3000/s/abc1234"
+  "short_url": "http://localhost:3000/s/abc1234"
 }
 ```
 
@@ -42,10 +42,9 @@ Example response:
 Use the `short_url` returned by the encode endpoint:
 
 ```sh
-SHORT_URL=https://localhost:3000/s/abc1234
 
 curl --get "$BASE_URL/api/v1/decode" \
-  --data-urlencode "short_url=$SHORT_URL"
+  --data-urlencode "short_url=http://localhost:3000/s/abc1234"
 ```
 
 Example response:
@@ -58,12 +57,8 @@ Example response:
 
 ## Call The API On Heroku
 
-If the app is already deployed to Heroku, set `BASE_URL` and `SHORT_URL` with
-the Heroku app host:
-
 ```sh
 BASE_URL=https://<app-name>.herokuapp.com
-SHORT_URL=https://<app-name>.herokuapp.com/s/abc1234
 ```
 
 Encode URL:
@@ -85,5 +80,12 @@ Decode URL:
 
 ```sh
 curl --get "$BASE_URL/api/v1/decode" \
-  --data-urlencode "short_url=$SHORT_URL"
+  --data-urlencode "short_url=https://<app-name>.herokuapp.com/s/abc1234"
+```
+Example Heroku response:
+
+```json
+{
+  "original_url": "https://codesubmit.io/library/react"
+}
 ```

@@ -43,7 +43,7 @@ RSpec.describe DecodeShortLinkValidator do
     end
 
     it 'rejects a short URL with an invalid code' do
-      invalid_codes = %w[abc123 abc123ZZ abc-123]
+      invalid_codes = %w[abc123 abc-123]
 
       invalid_codes.each do |invalid_code|
         validator = described_class.new(short_url: "https://#{short_link_host}/s/#{invalid_code}")

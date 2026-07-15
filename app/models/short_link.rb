@@ -2,7 +2,7 @@
 
 class ShortLink < ApplicationRecord
   CODE_MIN_LENGTH = 7
-  CODE_PATTERN = /\A[A-Za-z0-9]{#{CODE_MIN_LENGTH}}\z/
+  CODE_PATTERN = /\A[A-Za-z0-9]{#{CODE_MIN_LENGTH},}\z/
   ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 
   validates :original_url,

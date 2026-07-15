@@ -16,7 +16,7 @@ class DecodeShortLinkValidator < ApplicationValidator
 
     uri = URI.parse(short_url)
 
-    unless uri.host == Rails.application.credentials.short_link_host
+    unless allowed_host?(uri)
       errors.add(:short_url, 'has an invalid host')
       return
     end
@@ -29,5 +29,19 @@ class DecodeShortLinkValidator < ApplicationValidator
     end
 
     @code = extracted_code
+  end
+
+  private
+
+  def allowed_host?(uri)
+    host = Rails.application.credentials.short_link_host
+
+    uri.host == host || uri_host_with_port(uri) == host
+  end
+
+  def uri_host_with_port(uri)
+    return uri.host if uri.port == uri.default_port
+
+    "#{uri.host}:#{uri.port}"
   end
 end

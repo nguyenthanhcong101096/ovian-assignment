@@ -37,6 +37,12 @@ RSpec.describe ShortLink, type: :model do
       expect(short_link).to be_valid
     end
 
+    it 'allows codes longer than the minimum length' do
+      short_link = described_class.new(original_url: original_url, code: 'a' * 8)
+
+      expect(short_link).to be_valid
+    end
+
     it 'requires a unique code' do
       short_link = described_class.create!(original_url: original_url)
       duplicate = described_class.new(original_url: 'https://example.com/other', code: short_link.code)

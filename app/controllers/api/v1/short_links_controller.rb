@@ -27,9 +27,9 @@ module Api
         render json: {
           short_url: short_link_url(
             code: short_link.code,
+            port: Rails.application.credentials.short_link_port,
             host: Rails.application.credentials.short_link_host,
-            protocol: 'https',
-            port: nil
+            protocol: Rails.application.credentials.short_link_protocol
           )
         }, status: :created
       end
