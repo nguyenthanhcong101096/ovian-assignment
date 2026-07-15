@@ -11,11 +11,7 @@ the assignment.
 - Rails 8.1.3
 - PostgreSQL via `pg`
 - Puma 8.0.2
-- Redis for shared production rate-limit/cache storage when `REDIS_URL` is set
 - Docker and Docker Compose
-- RSpec for request/model/validator specs
-- Hashids for short code generation
-- Rack::Attack for request rate limiting
 
 ## Completed Checklist
 
