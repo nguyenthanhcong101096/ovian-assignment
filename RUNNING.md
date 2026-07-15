@@ -8,6 +8,8 @@
 
 Start the Rails API and PostgreSQL:
 
+Note: The RAILS_MASTER_KEY is intentionally included here for assignment testing and demo purposes only
+
 ```sh
 RAILS_MASTER_KEY='6e6a75087a9067cdccc0b882ba6a222d' docker compose up --build
 ```
