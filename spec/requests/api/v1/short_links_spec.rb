@@ -9,6 +9,7 @@ RSpec.describe 'Api::V1::ShortLinks' do
   before do
     allow(Rails.application.credentials).to receive(:short_link_host).and_return(short_link_host)
     allow(Rails.application.credentials).to receive(:short_link_protocol).and_return('https')
+    allow(Rails.application.credentials).to receive(:short_link_port).and_return(nil)
   end
 
   describe 'POST /api/v1/encode' do
