@@ -4,7 +4,7 @@ module Api
   module V1
     class ShortLinksController < BaseController
       def show
-        short_url = params.require(:short_url).strip
+        short_url = params.expect(:short_url).to_s.strip
         validator = DecodeShortLinkValidator.new(short_url: short_url)
 
         raise ApiError::InvalidParametersError, validator.errors.full_messages.join(', ') if validator.failure?
@@ -21,7 +21,7 @@ module Api
       end
 
       def create
-        original_url = params.require(:original_url).strip
+        original_url = params.expect(:original_url).to_s.strip
         short_link = ShortLink.create!(original_url: original_url)
 
         render json: {

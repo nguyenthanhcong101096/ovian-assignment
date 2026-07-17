@@ -70,6 +70,25 @@ RSpec.describe 'Api::V1::ShortLinks' do
       end
     end
 
+    context 'when original URL is an array' do
+      let(:original_url) { ['https://codesubmit.io/library/react'] }
+
+      it 'returns bad request' do
+        perform_request
+        expect(response).to have_http_status(:bad_request)
+        expect(response.parsed_body).to eq(
+          'error' => {
+            'code' => 'invalid_parameters',
+            'message' => 'param is missing or the value is empty or invalid: original_url'
+          }
+        )
+      end
+
+      it 'does not create a short link' do
+        expect { perform_request }.to change(ShortLink, :count).by(0)
+      end
+    end
+
     context 'when the client exceeds the encode rate limit' do
       before do
         Rack::Attack.cache.store.clear
@@ -138,6 +157,22 @@ RSpec.describe 'Api::V1::ShortLinks' do
           'error' => {
             'code' => 'invalid_parameters',
             'message' => 'Short url is not a valid HTTP/HTTPS URL'
+          }
+        )
+      end
+    end
+
+    context 'when the short URL is an array' do
+      let(:short_url) { ["https://#{short_link_host}/s/abcdefg"] }
+
+      it 'returns bad request' do
+        perform_request
+
+        expect(response).to have_http_status(:bad_request)
+        expect(response.parsed_body).to eq(
+          'error' => {
+            'code' => 'invalid_parameters',
+            'message' => 'param is missing or the value is empty or invalid: short_url'
           }
         )
       end

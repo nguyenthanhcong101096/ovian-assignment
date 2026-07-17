@@ -8,13 +8,17 @@ the assignment.
 ## Tech Stack
 
 - Ruby 3.3.5
-- Rails 8.0.5
+- Rails 8.1.3
 - PostgreSQL via `pg`
 - Puma 8.0.2
 - Docker and Docker Compose
-- RSpec for request/model/validator specs
-- Hashids for short code generation
-- Rack::Attack for request rate limiting
+
+## Completed Checklist
+
+- [x] Implement `POST /api/v1/encode` to create a short URL from an original URL.
+- [x] Implement `GET /api/v1/decode` to return the original URL from a short URL.
+- [x] Implement `GET /s/:code` to redirect users to the original URL.
+
 
 ## Persistence
 
@@ -94,15 +98,16 @@ using this service's domain to make the URL look more trustworthy.
 
 Mitigations:
 
+- Check submitted URLs against a threat-intelligence service such as Google Web Risk or Safe Browsing
 - Block known malicious domains.
-- Monitor and remove reported malicious links.
+- Periodically re-check existing destinations because a previously safe domain may later become malicious.
 - Consider showing a warning page before redirecting users to the destination.
+- Monitor and remove reported malicious links.
 
 ## AI Usage Disclosure
 
 AI was used as a discussion and review tool for project structure, design
-trade-offs, security considerations, scalability considerations, and test-case
-brainstorming.
+trade-offs, security considerations, scalability considerations
 
 The final implementation, debugging, testing, and engineering decisions were
 completed and verified by me.
